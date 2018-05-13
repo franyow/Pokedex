@@ -17,7 +17,7 @@ public class RvAdapter extends RecyclerView.Adapter<RvAdapter.ViewHolder> {
     ArrayList<Pokemon> listPokemon;
     private Context context;
 
-    public RvAdapter(ArrayList<Pokemon> listPokemon) {
+    public RvAdapter(Context context, ArrayList<Pokemon> listPokemon) {
         this.listPokemon = listPokemon;
     }
 

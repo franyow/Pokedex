@@ -4,15 +4,28 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import upc.pe.edu.pokedex.Adapters.PokedexAdapter;
+import upc.pe.edu.pokedex.Model.PokemonPokedex;
 import upc.pe.edu.pokedex.R;
 
 public class PokedexFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    RecyclerView recyclerViewPokedex;
+
+    ArrayList<String> pokeNames = new ArrayList<>();
+    ArrayList<PokemonPokedex> pokedexPokemonList = new ArrayList<>();
+
+
+
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
@@ -49,8 +62,32 @@ public class PokedexFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_pokedex, container, false);
+        View view = inflater.inflate(R.layout.fragment_pokedex, container, false);
+        recyclerViewPokedex = view.findViewById(R.id.pokedexrv);
+        recyclerViewPokedex.setLayoutManager(new LinearLayoutManager(getContext()));
+        CargarPokemonsPokedex();
+        PokedexAdapter adapter = new PokedexAdapter(pokedexPokemonList);
+        recyclerViewPokedex.setAdapter(adapter);
+
+        Log.e("TAG","tamaño Arraylist "+pokedexPokemonList.size());
+
+
+
+
+        return view;
     }
+
+    private void CargarPokemonsPokedex() {
+
+        List<PokemonPokedex> pokemonPokedexes = PokemonPokedex.listAll(PokemonPokedex.class);
+            for (PokemonPokedex pokedex : pokemonPokedexes) {
+                pokedexPokemonList.add(pokedex);
+            }
+
+        }
+
+
+
 
 
     public void onButtonPressed(Uri uri) {

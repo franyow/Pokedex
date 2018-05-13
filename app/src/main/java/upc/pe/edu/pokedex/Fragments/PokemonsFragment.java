@@ -29,20 +29,16 @@ import upc.pe.edu.pokedex.Network.NetworkAPI;
 import upc.pe.edu.pokedex.R;
 
 
-public class PokemonsFragment extends Fragment {
+public class PokemonsFragment extends Fragment implements Callback<PokemonRespuesta>{
 
     private static final String BASE_URL = "http://pokeapi.co/api/v2/";
-    Retrofit retrofit;
-    ArrayList<Pokemon> pokemonList = new ArrayList<>();
-
-    RecyclerView recyclerPokemons;
+    private Retrofit retrofit;
+    int limit=150, offset=20;
 
 
-
-
-
-
-
+    private RecyclerView recyclerPokemons;
+    private RvAdapter adapter;
+    private ArrayList<Pokemon> pokemonList= new ArrayList<>();
 
 
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -79,6 +75,8 @@ public class PokemonsFragment extends Fragment {
         }
 
 
+
+
     }
 
     @Override
@@ -86,33 +84,19 @@ public class PokemonsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_pokemons, container, false);
-
-        LoadPokemons();
         recyclerPokemons = view.findViewById(R.id.recyclerPokemon);
         recyclerPokemons.setLayoutManager(new LinearLayoutManager(getContext()));
-
-
-        RvAdapter adapter = new RvAdapter(pokemonList);
-        recyclerPokemons.setAdapter(adapter);
-
-        pokemonList.add(new Pokemon("asdsad","bulbaza"));
-
-
-
-
-
-
-
-
-
-
+        //RvAdapter adapter = new RvAdapter(pokemonList);
+        //recyclerPokemons.setAdapter(adapter);
+        recyclerPokemons.setHasFixedSize(true);
+        LoadPokemons();
 
 
         return view;
     }
 
-    //retrofit loaddata
-    private void LoadPokemons() {
+
+     void LoadPokemons() {
         Gson gson = new GsonBuilder().setLenient().create();
         retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
@@ -120,30 +104,37 @@ public class PokemonsFragment extends Fragment {
                 .build();
 
         NetworkAPI networkAPI = retrofit.create(NetworkAPI.class);
-        Call<PokemonRespuesta> call = networkAPI.getAllPokemon();
-        call.enqueue(new Callback<PokemonRespuesta>() {
-            @Override
-            public void onResponse(Call<PokemonRespuesta> call, Response<PokemonRespuesta> response) {
-                if(response.isSuccessful()) {
-                    PokemonRespuesta pokemonRespuesta = response.body();
-                    pokemonList = pokemonRespuesta.getResults();
-
-
-            }
-
-
-        }
-
-            @Override
-            public void onFailure(Call<PokemonRespuesta> call, Throwable t) {
-                Log.d("TAG", "ENTRÓ AL ONFAIL");
-            }
-
-        });
+        Call<PokemonRespuesta> call = networkAPI.getAllPokemon(limit,offset);
+        call.enqueue(this);
 
 
     }
-   
+
+    @Override
+    public void onResponse(Call<PokemonRespuesta> call, Response<PokemonRespuesta> response) {
+
+        if(response.isSuccessful()) {
+            PokemonRespuesta pokemonRespuesta = response.body();
+            pokemonList = pokemonRespuesta.getResults();
+            recyclerPokemons.setAdapter(new RvAdapter(getContext(),pokemonList));
+
+
+
+
+        }else {
+            Log.e("Pokemon", " onResponse: " + response.errorBody());
+        }
+
+
+    }
+
+    @Override
+    public void onFailure(Call<PokemonRespuesta> call, Throwable t) {
+
+    }
+
+
+
 
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -169,8 +160,6 @@ public class PokemonsFragment extends Fragment {
         super.onDetach();
         mListener = null;
     }
-
-
 
 
     public interface OnFragmentInteractionListener {

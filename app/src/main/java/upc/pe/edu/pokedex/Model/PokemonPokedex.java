@@ -2,11 +2,15 @@ package upc.pe.edu.pokedex.Model;
 
 import com.orm.SugarRecord;
 
-public class Pokemon {
-    String url;
-    String name;
+public class PokemonPokedex extends SugarRecord<PokemonPokedex> {
 
-    public Pokemon(String url, String name) {
+        String url;
+        String name;
+
+    public PokemonPokedex() {
+    }
+
+    public PokemonPokedex(String url, String name) {
         this.url = url;
         this.name = name;
     }
