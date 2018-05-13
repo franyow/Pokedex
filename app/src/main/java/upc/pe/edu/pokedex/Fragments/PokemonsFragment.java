@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -33,7 +34,7 @@ public class PokemonsFragment extends Fragment implements Callback<PokemonRespue
 
     private static final String BASE_URL = "http://pokeapi.co/api/v2/";
     private Retrofit retrofit;
-    int limit=150, offset=20;
+    int limit=150, offset=150;
 
 
     private RecyclerView recyclerPokemons;
@@ -85,7 +86,7 @@ public class PokemonsFragment extends Fragment implements Callback<PokemonRespue
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_pokemons, container, false);
         recyclerPokemons = view.findViewById(R.id.recyclerPokemon);
-        recyclerPokemons.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerPokemons.setLayoutManager(new GridLayoutManager(getContext(),3));
         //RvAdapter adapter = new RvAdapter(pokemonList);
         //recyclerPokemons.setAdapter(adapter);
         recyclerPokemons.setHasFixedSize(true);

@@ -125,8 +125,14 @@ public class HomeFragment extends Fragment implements Callback<Pokemon> {
         buttonGuardar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                guardarPokemon(pokemonEnPokedex);
-                Toast.makeText(getContext(), "Pokemon " +pokemon.getName()+"guardado en Pokedex!", Toast.LENGTH_SHORT).show();
+                
+                if(pokemon.getName()!=null) {
+                    guardarPokemon(pokemonEnPokedex);
+                    Toast.makeText(getContext(), "Pokemon " + pokemon.getName() + "guardado en Pokedex!", Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(getContext(), "Espere a que aparezca un pokemón", Toast.LENGTH_SHORT).show();
+
+                }
 
             }
         });

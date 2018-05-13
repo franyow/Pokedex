@@ -65,6 +65,7 @@ public class PokedexFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_pokedex, container, false);
         recyclerViewPokedex = view.findViewById(R.id.pokedexrv);
         recyclerViewPokedex.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerViewPokedex.setHasFixedSize(true);
         CargarPokemonsPokedex();
         PokedexAdapter adapter = new PokedexAdapter(pokedexPokemonList);
         recyclerViewPokedex.setAdapter(adapter);
