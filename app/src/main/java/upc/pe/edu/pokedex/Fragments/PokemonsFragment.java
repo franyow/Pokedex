@@ -34,7 +34,7 @@ public class PokemonsFragment extends Fragment implements Callback<PokemonRespue
 
     private static final String BASE_URL = "http://pokeapi.co/api/v2/";
     private Retrofit retrofit;
-    int limit=150, offset=150;
+    int limit=150, offset=0;
 
 
     private RecyclerView recyclerPokemons;
@@ -117,7 +117,7 @@ public class PokemonsFragment extends Fragment implements Callback<PokemonRespue
         if(response.isSuccessful()) {
             PokemonRespuesta pokemonRespuesta = response.body();
             pokemonList = pokemonRespuesta.getResults();
-            recyclerPokemons.setAdapter(new RvAdapter(getContext(),pokemonList));
+            recyclerPokemons.setAdapter(new RvAdapter(pokemonList, getContext()));
 
 
 

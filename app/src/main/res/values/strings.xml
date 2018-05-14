@@ -9,4 +9,5 @@
     <string name="Home">PokemHome</string>
     <string name="Pokemons">Pokemons</string>
     <string name="Pokedex">Pokedex</string>
+    <string name="pokemonTitle">PÓKEMON</string>
 </resources>

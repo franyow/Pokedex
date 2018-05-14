@@ -205,7 +205,7 @@ public class HomeFragment extends Fragment implements Callback<Pokemon> {
                 Glide.with(getContext())
                         .load("http://pokeapi.co/media/sprites/pokemon/" + pokeNumero + ".png")
                         .into(pokefoto);
-                Toast.makeText(getContext(), "numero "+pokeNumero+" " +pokemon.getName(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Apareció un "  +pokemon.getName(), Toast.LENGTH_SHORT).show();
 
                 nombrePokemon.setText(pokemon.getName());
                 pokemonString = pokemon.getName();

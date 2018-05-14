@@ -3,6 +3,7 @@ package upc.pe.edu.pokedex.Model;
 import com.orm.SugarRecord;
 
 public class Pokemon {
+    int number;
     String url;
     String name;
 
@@ -25,5 +26,14 @@ public class Pokemon {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getNumber() {
+        String[] urlPartes = url.split("/");
+        return Integer.parseInt(urlPartes[urlPartes.length - 1]);
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
     }
 }

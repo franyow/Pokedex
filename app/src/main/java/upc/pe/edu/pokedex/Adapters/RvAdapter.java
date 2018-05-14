@@ -6,7 +6,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import java.util.ArrayList;
 
@@ -17,8 +21,9 @@ public class RvAdapter extends RecyclerView.Adapter<RvAdapter.ViewHolder> {
     ArrayList<Pokemon> listPokemon;
     private Context context;
 
-    public RvAdapter(Context context, ArrayList<Pokemon> listPokemon) {
+    public RvAdapter(ArrayList<Pokemon> listPokemon, Context context) {
         this.listPokemon = listPokemon;
+        this.context = context;
     }
 
     @Override
@@ -32,7 +37,11 @@ public class RvAdapter extends RecyclerView.Adapter<RvAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
+        Pokemon p = listPokemon.get(position);
         holder.nombrepokemon.setText(listPokemon.get(position).getName());
+        Glide.with(context)
+                .load("http://pokeapi.co/media/sprites/pokemon/" + p.getNumber() + ".png")
+                .into(holder.imgpokemon);
 
     }
 
@@ -49,11 +58,13 @@ public class RvAdapter extends RecyclerView.Adapter<RvAdapter.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView nombrepokemon;
+        ImageView imgpokemon;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
-            nombrepokemon = itemView.findViewById(R.id.pokemonName);
+            nombrepokemon = itemView.findViewById(R.id.nombreTextView);
+            imgpokemon = itemView.findViewById(R.id.fotoImageView);
         }
     }
 }

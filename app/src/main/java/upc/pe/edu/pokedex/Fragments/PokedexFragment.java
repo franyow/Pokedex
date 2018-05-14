@@ -21,6 +21,7 @@ import upc.pe.edu.pokedex.R;
 public class PokedexFragment extends Fragment {
     RecyclerView recyclerViewPokedex;
 
+
     ArrayList<String> pokeNames = new ArrayList<>();
     ArrayList<PokemonPokedex> pokedexPokemonList = new ArrayList<>();
 
@@ -69,6 +70,7 @@ public class PokedexFragment extends Fragment {
         CargarPokemonsPokedex();
         PokedexAdapter adapter = new PokedexAdapter(pokedexPokemonList,getContext());
         recyclerViewPokedex.setAdapter(adapter);
+        recyclerViewPokedex.hasFixedSize();
 
         Log.e("TAG","tamaño Arraylist "+pokedexPokemonList.size());
 
