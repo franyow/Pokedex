@@ -22,9 +22,9 @@ public class PokedexAdapter extends RecyclerView.Adapter<PokedexAdapter.ViewHold
     ArrayList<PokemonPokedex> pokemonPokedexes;
     private Context context;
 
-    public PokedexAdapter(ArrayList<PokemonPokedex> pokemonPokedexes) {
+    public PokedexAdapter(ArrayList<PokemonPokedex> pokemonPokedexes, Context context) {
         this.pokemonPokedexes = pokemonPokedexes;
-
+        this.context = context;
     }
 
     @Override
@@ -37,14 +37,11 @@ public class PokedexAdapter extends RecyclerView.Adapter<PokedexAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(ViewHolderPokedex holder, int position) {
-
+        PokemonPokedex p = pokemonPokedexes.get(position);
         holder.nombrePoke.setText(pokemonPokedexes.get(position).getName());
-        /*Glide.with(context)
+        Glide.with(context)
                 .load("http://pokeapi.co/media/sprites/pokemon/" + p.getNumber() + ".png")
-                .centerCrop()
-                .crossFade()
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .into(holder.pokeimage);*/
+                .into(holder.pokeimage);
 
     }
 
@@ -59,6 +56,7 @@ public class PokedexAdapter extends RecyclerView.Adapter<PokedexAdapter.ViewHold
         public ViewHolderPokedex(View itemView) {
             super(itemView);
             nombrePoke = itemView.findViewById(R.id.pokedexName);
+            pokeimage = itemView.findViewById(R.id.rvPokeimg);
         }
     }
 }

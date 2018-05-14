@@ -17,8 +17,8 @@
 
             <ImageView
                 android:id="@+id/rvPokeimg"
-                android:layout_width="283dp"
-                android:layout_height="match_parent"
+                android:layout_width="300dp"
+                android:layout_height="100dp"
                 android:layout_weight="1"
                 app:srcCompat="@drawable/bulba" />
 
@@ -27,8 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:gravity="center"
-                android:text="TextView" />
+                android:gravity="center" />
 
         </LinearLayout>
 

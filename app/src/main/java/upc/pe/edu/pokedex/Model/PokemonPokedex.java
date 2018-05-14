@@ -4,13 +4,15 @@ import com.orm.SugarRecord;
 
 public class PokemonPokedex extends SugarRecord<PokemonPokedex> {
 
+        int number;
         String url;
         String name;
 
     public PokemonPokedex() {
     }
 
-    public PokemonPokedex(String url, String name) {
+    public PokemonPokedex(int number, String url, String name) {
+        this.number = number;
         this.url = url;
         this.name = name;
     }
@@ -29,5 +31,13 @@ public class PokemonPokedex extends SugarRecord<PokemonPokedex> {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getNumber() {
+        return number;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
     }
 }

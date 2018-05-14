@@ -67,7 +67,7 @@ public class PokedexFragment extends Fragment {
         recyclerViewPokedex.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerViewPokedex.setHasFixedSize(true);
         CargarPokemonsPokedex();
-        PokedexAdapter adapter = new PokedexAdapter(pokedexPokemonList);
+        PokedexAdapter adapter = new PokedexAdapter(pokedexPokemonList,getContext());
         recyclerViewPokedex.setAdapter(adapter);
 
         Log.e("TAG","tamaño Arraylist "+pokedexPokemonList.size());

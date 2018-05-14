@@ -125,13 +125,18 @@ public class HomeFragment extends Fragment implements Callback<Pokemon> {
         buttonGuardar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                
-                if(pokemon.getName()!=null) {
-                    guardarPokemon(pokemonEnPokedex);
-                    Toast.makeText(getContext(), "Pokemon " + pokemon.getName() + "guardado en Pokedex!", Toast.LENGTH_SHORT).show();
-                }else{
-                    Toast.makeText(getContext(), "Espere a que aparezca un pokemón", Toast.LENGTH_SHORT).show();
 
+
+                try {
+                    if(pokemon.getName()!=null) {
+                        guardarPokemon(pokemonEnPokedex);
+                        Toast.makeText(getContext(), "Pokemon " + pokemon.getName() + "guardado en Pokedex!", Toast.LENGTH_SHORT).show();
+                    }else{
+                        Toast.makeText(getContext(), "Espere a que aparezca un pokemón", Toast.LENGTH_SHORT).show();
+
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
 
             }
@@ -183,7 +188,7 @@ public class HomeFragment extends Fragment implements Callback<Pokemon> {
     }
 
     void guardarPokemon(PokemonPokedex pokemonPokedex){
-        pokemonPokedex=new PokemonPokedex(pokemon.getUrl(),pokemon.getName());
+        pokemonPokedex=new PokemonPokedex(pokeNumero,pokemon.getUrl(),pokemon.getName());
         pokemonPokedex.save();
 
     }
@@ -194,12 +199,20 @@ public class HomeFragment extends Fragment implements Callback<Pokemon> {
             pokemon = response.body();
 
 
-            nombrePokemon.setText(pokemon.getName());
-            pokemonString = pokemon.getName();
-            Glide.with(getContext())
-                    .load("http://pokeapi.co/media/sprites/pokemon/" + pokeNumero + ".png")
-                    .into(pokefoto);
-            Toast.makeText(getContext(), "numero "+pokeNumero+" " +pokemon.getName(), Toast.LENGTH_SHORT).show();
+
+
+            try {
+                Glide.with(getContext())
+                        .load("http://pokeapi.co/media/sprites/pokemon/" + pokeNumero + ".png")
+                        .into(pokefoto);
+                Toast.makeText(getContext(), "numero "+pokeNumero+" " +pokemon.getName(), Toast.LENGTH_SHORT).show();
+
+                nombrePokemon.setText(pokemon.getName());
+                pokemonString = pokemon.getName();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
 
 
 
